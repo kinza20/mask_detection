@@ -1,9 +1,11 @@
+Flask
+tensorflow
 opencv-python
 pandas
 numpy
 scikit-learn
 matplotlib
-
+seaborn
 torch
 torchvision
-
+gunicorn

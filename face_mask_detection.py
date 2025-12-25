@@ -68,39 +68,42 @@ model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.1)
 
 loss, acc = model.evaluate(X_test, y_test)
 print("Test Accuracy:", acc)
+# Save the trained model
+model.save("mask_model.h5")
+print("Model saved!")
 
 # =========================
 # Step 5: Webcam Detection
 # =========================
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-cam = cv2.VideoCapture(0)
+#face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+#cam = cv2.VideoCapture(0)
 
-if not cam.isOpened():
-    print("Cannot open webcam")
-    exit()
+#if not cam.isOpened():
+#    print("Cannot open webcam")
+#    exit()
 
-print("Press 'q' to quit")
-while True:
-    ret, frame = cam.read()
-    if not ret:
-        break
+#print("Press 'q' to quit")
+#while True:
+#    ret, frame = cam.read()
+#    if not ret:
+#        break
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+#    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
-    for (x, y, w, h) in faces:
-        face = frame[y:y+h, x:x+w]
-        face_resized = cv2.resize(face, (64,64))
-        face_input = np.expand_dims(face_resized, axis=0)  # shape (1,64,64,3)
-        pred = model.predict(face_input, verbose=0)
-        label = "Mask" if np.argmax(pred) == 1 else "No Mask"
-        color = (0,255,0) if np.argmax(pred) == 1 else (0,0,255)
-        cv2.rectangle(frame, (x,y), (x+w, y+h), color, 2)
-        cv2.putText(frame, label, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 2)
+#    for (x, y, w, h) in faces:
+#        face = frame[y:y+h, x:x+w]
+#        face_resized = cv2.resize(face, (64,64))
+#        face_input = np.expand_dims(face_resized, axis=0)  # shape (1,64,64,3)
+#        pred = model.predict(face_input, verbose=0)
+#        label = "Mask" if np.argmax(pred) == 1 else "No Mask"
+#        color = (0,255,0) if np.argmax(pred) == 1 else (0,0,255)
+#        cv2.rectangle(frame, (x,y), (x+w, y+h), color, 2)
+#        cv2.putText(frame, label, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 2)
 
-    cv2.imshow("Face Mask Detection", frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+#    cv2.imshow("Face Mask Detection", frame)
+#    if cv2.waitKey(1) & 0xFF == ord('q'):
+#        break
 
-cam.release()
-cv2.destroyAllWindows()
+#cam.release()
+#cv2.destroyAllWindows()

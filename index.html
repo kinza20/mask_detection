@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mask Detection</title>
+</head>
+<body>
+    <h2>Mask Detection Demo</h2>
+    <input type="file" id="imageInput" accept="image/*">
+    <button onclick="uploadImage()">Predict</button>
+
+    <h3 id="result"></h3>
+
+    <script>
+        async function uploadImage() {
+            const fileInput = document.getElementById('imageInput');
+            const result = document.getElementById('result');
+
+            if (fileInput.files.length === 0) {
+                result.innerText = "Please select an image!";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", fileInput.files[0]);
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                result.innerText = `Prediction: ${data.label}, Confidence: ${data.confidence.toFixed(2)}`;
+            } catch (err) {
+                result.innerText = "Error: " + err;
+            }
+        }
+    </script>
+</body>
+</html>

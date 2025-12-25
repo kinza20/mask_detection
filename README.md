@@ -1,6 +1,4 @@
-Perfect! Let’s make your **Mask Detection repo GitHub-ready and CV-friendly**. Here’s a full `README.md` you can use. Just create a file `README.md` in your project root and paste this:
 
----
 
 ```markdown
 # Mask Detection Web App

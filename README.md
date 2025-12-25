@@ -134,7 +134,5 @@ print(response.json())
 
 ---
 
-If you want, I can also **write a very short CV bullet point** for this project that you can directly put under “Projects” in your CV — recruiter-ready and impactful.  
 
-Do you want me to do that?
 ```
